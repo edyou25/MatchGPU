@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Python · PyTorch · CUDA · NVIDIA GPU Timeline</title>
+  <style>
+    :root{
+      color-scheme:dark;
+      --bg:#0a0c10; --panel:#10141b; --panel2:#151b24; --text:#eef3fa;
+      --muted:#8d99aa; --border:#273140; --accent:#70a5ff; --good:#67d69a;
+      --warn:#f4c66a; --python:#70a5ff; --torch:#ff8c69; --cuda:#76d275; --gpu:#c38cff;
+      --shadow:0 16px 42px rgba(0,0,0,.28);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    button{font:inherit}
+    .app{max-width:1500px;margin:auto;padding:22px}
+    header{display:flex;gap:18px;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+    h1{font-size:22px;margin:0 0 5px;font-weight:700;letter-spacing:-.02em}
+    .subtitle{color:var(--muted);max-width:880px}
+    .actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+    .btn{border:1px solid var(--border);background:var(--panel2);color:var(--text);padding:8px 12px;border-radius:10px;cursor:pointer}
+    .btn:hover{border-color:#52647d}
+    .btn.primary{background:var(--accent);color:#07101c;border-color:transparent;font-weight:700}
+    .status{font-size:12px;color:var(--muted);min-width:180px;text-align:right}
+    .legend{display:flex;gap:13px;flex-wrap:wrap;margin:10px 0 16px;color:var(--muted);font-size:12px}
+    .legend span{display:inline-flex;align-items:center;gap:6px}
+    .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+    .dot.python{background:var(--python)} .dot.torch{background:var(--torch)}
+    .dot.cuda{background:var(--cuda)} .dot.gpu{background:var(--gpu)}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+    .timeline-shell{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+    .ruler{height:44px;position:relative;border-bottom:1px solid var(--border);margin-left:102px;margin-right:18px}
+    .year{position:absolute;bottom:8px;transform:translateX(-50%);font-size:11px;color:var(--muted)}
+    .year::before{content:"";position:absolute;width:1px;height:9px;background:var(--border);left:50%;bottom:-8px}
+    .track{position:relative;height:138px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:102px 1fr}
+    .track:last-child{border-bottom:0}
+    .track-label{padding:18px 10px 0 16px;font-weight:700;letter-spacing:.01em}
+    .track-label small{display:block;color:var(--muted);font-weight:500;margin-top:3px}
+    .lane{position:relative;margin:0 18px}
+    .line{position:absolute;left:0;right:0;top:67px;height:2px;background:#313c4d}
+    .line::after{content:"NOW";position:absolute;right:-2px;top:-22px;color:var(--muted);font-size:10px}
+    .node{position:absolute;top:57px;width:20px;height:20px;border-radius:50%;transform:translateX(-50%);border:3px solid var(--panel);cursor:pointer;transition:.14s ease;z-index:3}
+    .node.python{background:var(--python)} .node.torch{background:var(--torch)}
+    .node.cuda{background:var(--cuda)} .node.gpu{background:var(--gpu)}
+    .node:hover,.node.active{transform:translateX(-50%) scale(1.28);box-shadow:0 0 0 5px rgba(112,165,255,.12)}
+    .node.related{outline:2px solid var(--good);outline-offset:3px}
+    .node.dim{opacity:.22}
+    .label{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;color:#d8e1ed;pointer-events:none}
+    .node.up .label{bottom:23px}.node.down .label{top:23px}
+    .badge{display:inline-block;margin-left:4px;padding:1px 5px;border-radius:999px;background:#243044;color:#a8c7ff;font-size:9px}
+    aside{position:sticky;top:16px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px;min-height:312px;box-shadow:var(--shadow)}
+    aside h2{font-size:16px;margin:0 0 4px}
+    .detail-date{color:var(--muted);font-size:12px;margin-bottom:12px}
+    .compat-group{margin:13px 0}
+    .compat-group h3{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 6px}
+    .chips{display:flex;flex-wrap:wrap;gap:6px}
+    .chip{border:1px solid #344154;background:#151d28;border-radius:999px;padding:4px 8px;font-size:12px}
+    .chip.good{border-color:#32664a;color:#9ae3b8}
+    .callout{margin-top:13px;padding:10px 11px;background:#101d18;border:1px solid #284f3a;border-radius:10px;color:#b8e9cb;font-size:12px}
+    .hint{color:var(--muted);font-size:12px}
+    .sources{margin-top:15px;padding-top:12px;border-top:1px solid var(--border)}
+    .sources summary{cursor:pointer;color:var(--muted)}
+    .sources a{color:#9ec2ff;text-decoration:none}
+    .sources ul{padding-left:18px;margin-bottom:0}
+    .tooltip{position:fixed;z-index:100;pointer-events:none;background:#0d1118;border:1px solid #344154;border-radius:9px;padding:7px 9px;box-shadow:var(--shadow);font-size:12px;max-width:280px;display:none}
+    @media(max-width:900px){
+      .layout{grid-template-columns:1fr}
+      aside{position:static}
+      header{flex-direction:column}
+      .actions{justify-content:flex-start}
+      .status{text-align:left}
+      .track{height:150px;grid-template-columns:82px 1fr}
+      .ruler{margin-left:82px}
+      .track-label{padding-left:10px;font-size:12px}
+      .lane{margin-right:10px;margin-left:8px}
+      .label{font-size:10px}
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div>
+      <h1>Python · PyTorch · CUDA · NVIDIA GPU Compatibility Timeline</h1>
+      <div class="subtitle">2018 → now。悬停查看兼容关系，点击节点可锁定；点击空白处取消。绿色外圈表示与当前节点存在官方 binary / native-support 关系。</div>
+    </div>
+    <div class="actions">
+      <button id="resetBtn" class="btn" type="button">Reset</button>
+      <button id="updateBtn" class="btn primary" type="button">Update</button>
+      <div id="status" class="status">loading local data…</div>
+    </div>
+  </header>
+
+  <div class="legend">
+    <span><i class="dot python"></i>Python</span>
+    <span><i class="dot torch"></i>PyTorch</span>
+    <span><i class="dot cuda"></i>CUDA Toolkit</span>
+    <span><i class="dot gpu"></i>NVIDIA GeForce RTX</span>
+    <span>绿色外圈 = officially related</span>
+  </div>
+
+  <div class="layout">
+    <section class="timeline-shell" aria-label="Version compatibility timeline">
+      <div class="ruler" id="ruler"></div>
+      <div id="tracks"></div>
+    </section>
+
+    <aside id="inspector">
+      <h2>Hover a node</h2>
+      <div class="detail-date">把鼠标放到任意版本节点</div>
+      <div class="hint">例如悬停 <b>RTX 50</b>，会突出显示 Blackwell 的原生 CUDA 起点与推荐 PyTorch 世代；悬停 <b>PyTorch 1.12</b>，可以直观看到它与 RTX 50 的断层。</div>
+      <details class="sources">
+        <summary>数据规则与官方来源</summary>
+        <div id="sourceList"></div>
+      </details>
+    </aside>
+  </div>
+</div>
+<div id="tooltip" class="tooltip"></div>
+
+<script>
+const trackInfo = {
+  python:{title:"Python",sub:"CPython feature releases"},
+  torch:{title:"PyTorch",sub:"major/minor releases"},
+  cuda:{title:"CUDA",sub:"Toolkit milestones"},
+  gpu:{title:"NVIDIA GPU",sub:"GeForce RTX generations"}
+};
+let DB=null, pinned=null, current=null;
+const byId = new Map();
+
+function dateMs(s){ return new Date(s+"T00:00:00Z").getTime(); }
+function pct(date){
+  const start=dateMs(DB.meta.range[0]), end=dateMs(DB.meta.range[1]);
+  return Math.max(0,Math.min(100,(dateMs(date)-start)/(end-start)*100));
+}
+function buildRuler(){
+  const r=document.getElementById("ruler"); r.innerHTML="";
+  const sy=+DB.meta.range[0].slice(0,4), ey=+DB.meta.range[1].slice(0,4);
+  for(let y=sy;y<=ey;y++){
+    const e=document.createElement("div"); e.className="year";
+    e.style.left=pct(`${y}-01-01`)+"%"; e.textContent=y; r.appendChild(e);
+  }
+}
+function render(){
+  byId.clear(); buildRuler();
+  const host=document.getElementById("tracks"); host.innerHTML="";
+  Object.entries(trackInfo).forEach(([key,info])=>{
+    const row=document.createElement("div"); row.className="track";
+    const tl=document.createElement("div"); tl.className="track-label";
+    tl.innerHTML=`${info.title}<small>${info.sub}</small>`;
+    const lane=document.createElement("div"); lane.className="lane";
+    const line=document.createElement("div"); line.className="line"; lane.appendChild(line);
+    (DB.tracks[key]||[]).forEach((item,i)=>{
+      const n=document.createElement("button");
+      n.type="button"; n.className=`node ${key} ${i%2 ? "down":"up"}`;
+      n.style.left=pct(item.date)+"%";
+      n.dataset.track=key; n.dataset.id=item.id;
+      n.setAttribute("aria-label",`${item.detail}, ${item.date}`);
+      const label=document.createElement("span"); label.className="label";
+      label.innerHTML=`${item.version}${item.badge?`<span class="badge">${item.badge}</span>`:""}`;
+      n.appendChild(label); lane.appendChild(n);
+      byId.set(item.id,{el:n,item,track:key});
+      n.addEventListener("mouseenter",ev=>{ if(!pinned) selectNode(item.id); showTip(ev,item); });
+      n.addEventListener("mousemove",moveTip);
+      n.addEventListener("mouseleave",()=>{ hideTip(); if(!pinned) clearSelection(); });
+      n.addEventListener("click",ev=>{
+        ev.stopPropagation();
+        pinned = pinned===item.id ? null : item.id;
+        pinned ? selectNode(item.id) : clearSelection();
+      });
+    });
+    row.append(tl,lane); host.appendChild(row);
+  });
+  document.querySelector(".timeline-shell").addEventListener("click",()=>{pinned=null;clearSelection();},{once:false});
+  renderSources();
+  document.getElementById("status").textContent=`local data: ${DB.meta.last_updated}`;
+}
+function versionsToIds(track, versions){
+  const want=new Set(versions||[]);
+  return (DB.tracks[track]||[]).filter(x=>want.has(x.version)).map(x=>x.id);
+}
+function reverseLookup(map, version){ return Object.entries(map||{}).filter(([k,v])=>(v||[]).includes(version)).map(([k])=>k); }
+
+function relations(track,item){
+  const out={python:[],torch:[],cuda:[],gpu:[],notes:[]};
+  const C=DB.compat;
+  if(track==="torch"){
+    out.cuda=versionsToIds("cuda",C.torch_cuda[item.version]||[]);
+    out.python=versionsToIds("python",C.torch_python[item.version]||[]);
+    out.gpu=versionsToIds("gpu",reverseLookup(C.gpu_torch_recommended,item.version));
+    if(item.version==="1.12") out.notes.push("VLFM 原始环境常见：PyTorch 1.12 + CUDA 11.3。它早于 Blackwell/RTX 50 的原生支持世代。");
+    if(item.version==="2.7") out.notes.push("PyTorch 2.7 release notes explicitly introduced NVIDIA Blackwell architecture support.");
+  } else if(track==="cuda"){
+    const torchVers=reverseLookup(C.torch_cuda,item.version);
+    out.torch=versionsToIds("torch",torchVers);
+    const gpuVers=reverseLookup(C.gpu_cuda_native,item.version);
+    out.gpu=versionsToIds("gpu",gpuVers);
+    if(item.version==="12.8") out.notes.push("CUDA 12.8 is the key native Blackwell milestone in NVIDIA's Blackwell compatibility documentation.");
+  } else if(track==="python"){
+    const torchVers=reverseLookup(C.torch_python,item.version);
+    out.torch=versionsToIds("torch",torchVers);
+  } else if(track==="gpu"){
+    out.cuda=versionsToIds("cuda",C.gpu_cuda_native[item.version]||[]);
+    out.torch=versionsToIds("torch",C.gpu_torch_recommended[item.version]||[]);
+    if(item.version==="RTX 50") out.notes.push("RTX 50 = Blackwell。对你这张 RTX 5070，优先看 CUDA 12.8+ / PyTorch 2.7+ 这一带，而不是 VLFM 的 torch 1.12 + cu113。");
+    out.notes.push("GPU→CUDA 这里标的是“原生架构支持起点”，不是声称所有更旧 Toolkit 都绝对无法通过 PTX forward compatibility 运行。");
+  }
+  return out;
+}
+function selectNode(id){
+  current=id;
+  const rec=byId.get(id); if(!rec)return;
+  const rel=relations(rec.track,rec.item);
+  const related=new Set(Object.values(rel).flat().filter(x=>typeof x==="string" && byId.has(x)));
+  byId.forEach(({el},nid)=>{
+    el.classList.toggle("active",nid===id);
+    el.classList.toggle("related",related.has(nid));
+    el.classList.toggle("dim",nid!==id && !related.has(nid));
+  });
+  renderInspector(rec,rel);
+}
+function clearSelection(){
+  current=null;
+  byId.forEach(({el})=>el.classList.remove("active","related","dim"));
+  document.getElementById("inspector").innerHTML=`
+    <h2>Hover a node</h2>
+    <div class="detail-date">把鼠标放到任意版本节点</div>
+    <div class="hint">绿色外圈表示与当前节点存在官方 binary / native-support 关系。点击节点可以锁定选择。</div>
+    <details class="sources"><summary>数据规则与官方来源</summary><div id="sourceList"></div></details>`;
+  renderSources();
+}
+function labelForId(id){
+  const r=byId.get(id); return r ? `${trackInfo[r.track].title} ${r.item.version}` : id;
+}
+function renderInspector(rec,rel){
+  const groups=[
+    ["python","Python",rel.python],["torch","PyTorch",rel.torch],
+    ["cuda","CUDA",rel.cuda],["gpu","NVIDIA GPU",rel.gpu]
+  ].filter(([k,_,ids])=>k!==rec.track && ids.length);
+  let html=`<h2>${rec.item.detail}</h2><div class="detail-date">${rec.item.date}${rec.item.badge?` · ${rec.item.badge}`:""}</div>`;
+  if(rec.item.arch) html+=`<div class="hint">Architecture: <b>${rec.item.arch}</b> · compute capability: <b>${rec.item.sm}</b></div>`;
+  groups.forEach(([_,name,ids])=>{
+    html+=`<div class="compat-group"><h3>${name}</h3><div class="chips">${
+      ids.map(id=>`<span class="chip good">${labelForId(id)}</span>`).join("")
+    }</div></div>`;
+  });
+  if(!groups.length) html+=`<div class="hint">此节点在当前 curated compatibility matrix 中没有其它可显示关系。</div>`;
+  (rel.notes||[]).forEach(n=>html+=`<div class="callout">${n}</div>`);
+  html+=`<details class="sources"><summary>数据规则与官方来源</summary><div id="sourceList"></div></details>`;
+  document.getElementById("inspector").innerHTML=html; renderSources();
+}
+function renderSources(){
+  const el=document.getElementById("sourceList"); if(!el||!DB)return;
+  el.innerHTML=`<ul>${DB.meta.sources.map(s=>`<li><a href="${s.url}" target="_blank" rel="noreferrer">${s.name}</a></li>`).join("")}</ul>
+  <div class="hint">${DB.meta.notes.join("<br>")}</div>`;
+}
+function showTip(ev,item){
+  const t=document.getElementById("tooltip"); t.innerHTML=`<b>${item.detail}</b><br>${item.date}`; t.style.display="block"; moveTip(ev);
+}
+function moveTip(ev){ const t=document.getElementById("tooltip"); t.style.left=(ev.clientX+14)+"px"; t.style.top=(ev.clientY+14)+"px"; }
+function hideTip(){ document.getElementById("tooltip").style.display="none"; }
+
+async function loadData(){
+  const res=await fetch("data.json?ts="+Date.now(),{cache:"no-store"}); if(!res.ok) throw new Error("data.json "+res.status);
+  DB=await res.json(); render();
+}
+async function update(){
+  const btn=document.getElementById("updateBtn"), status=document.getElementById("status");
+  btn.disabled=true; status.textContent="updating from official sources…";
+  try{
+    const res=await fetch("/api/update",{method:"POST"});
+    if(!res.ok) throw new Error("update endpoint unavailable");
+    const msg=await res.json();
+    await loadData();
+    status.textContent=`updated: ${msg.updated || DB.meta.last_updated}`;
+  }catch(e){
+    // Static preview mode: refresh local JSON, but cannot write files.
+    try{ await loadData(); }catch(_){}
+    status.textContent="static mode: local JSON reloaded · run python3 server.py for online update";
+  }finally{ btn.disabled=false; }
+}
+document.getElementById("updateBtn").addEventListener("click",update);
+document.getElementById("resetBtn").addEventListener("click",()=>{pinned=null;clearSelection();});
+loadData().catch(e=>{document.getElementById("status").textContent="failed to load data.json"; console.error(e);});
+</script>
+</body>
+</html>

@@ -1,0 +1,848 @@
+{
+  "meta": {
+    "title": "Python · PyTorch · CUDA · NVIDIA GPU Compatibility Timeline",
+    "range": [
+      "2018-01-01",
+      "2026-08-13"
+    ],
+    "last_updated": "2026-08-13",
+    "notes": [
+      "PyTorch ↔ CUDA: official PyTorch binary build matrices.",
+      "PyTorch ↔ Python: CPython wheel availability / official supported Python range.",
+      "GPU ↔ CUDA: native architecture support milestones; PTX forward-compatibility can be broader.",
+      "GPU release nodes use first major desktop GeForce availability for each RTX generation."
+    ],
+    "sources": [
+      {
+        "name": "Python version history",
+        "url": "https://www.python.org/doc/versions/"
+      },
+      {
+        "name": "PyTorch previous versions",
+        "url": "https://pytorch.org/get-started/previous-versions/"
+      },
+      {
+        "name": "PyTorch Start Locally",
+        "url": "https://pytorch.org/get-started/locally/"
+      },
+      {
+        "name": "CUDA Toolkit archive",
+        "url": "https://developer.nvidia.com/cuda-toolkit-archive"
+      },
+      {
+        "name": "NVIDIA CUDA compatibility guides",
+        "url": "https://docs.nvidia.com/cuda/"
+      },
+      {
+        "name": "NVIDIA Newsroom",
+        "url": "https://nvidianews.nvidia.com/"
+      }
+    ]
+  },
+  "tracks": {
+    "python": [
+      {
+        "id": "py37",
+        "version": "3.7",
+        "date": "2018-06-27",
+        "detail": "Python 3.7.0"
+      },
+      {
+        "id": "py38",
+        "version": "3.8",
+        "date": "2019-10-14",
+        "detail": "Python 3.8.0"
+      },
+      {
+        "id": "py39",
+        "version": "3.9",
+        "date": "2020-10-05",
+        "detail": "Python 3.9.0"
+      },
+      {
+        "id": "py310",
+        "version": "3.10",
+        "date": "2021-10-04",
+        "detail": "Python 3.10.0"
+      },
+      {
+        "id": "py311",
+        "version": "3.11",
+        "date": "2022-10-24",
+        "detail": "Python 3.11.0"
+      },
+      {
+        "id": "py312",
+        "version": "3.12",
+        "date": "2023-10-02",
+        "detail": "Python 3.12.0"
+      },
+      {
+        "id": "py313",
+        "version": "3.13",
+        "date": "2024-10-07",
+        "detail": "Python 3.13.0"
+      },
+      {
+        "id": "py314",
+        "version": "3.14",
+        "date": "2025-10-07",
+        "detail": "Python 3.14.0"
+      }
+    ],
+    "torch": [
+      {
+        "id": "torch100",
+        "version": "1.0",
+        "date": "2018-12-07",
+        "detail": "PyTorch 1.0.0"
+      },
+      {
+        "id": "torch110",
+        "version": "1.1",
+        "date": "2019-04-30",
+        "detail": "PyTorch 1.1.0"
+      },
+      {
+        "id": "torch120",
+        "version": "1.2",
+        "date": "2019-08-08",
+        "detail": "PyTorch 1.2.0"
+      },
+      {
+        "id": "torch130",
+        "version": "1.3",
+        "date": "2019-10-10",
+        "detail": "PyTorch 1.3.0"
+      },
+      {
+        "id": "torch140",
+        "version": "1.4",
+        "date": "2020-01-15",
+        "detail": "PyTorch 1.4.0"
+      },
+      {
+        "id": "torch150",
+        "version": "1.5",
+        "date": "2020-04-21",
+        "detail": "PyTorch 1.5.0"
+      },
+      {
+        "id": "torch160",
+        "version": "1.6",
+        "date": "2020-07-28",
+        "detail": "PyTorch 1.6.0"
+      },
+      {
+        "id": "torch170",
+        "version": "1.7",
+        "date": "2020-10-27",
+        "detail": "PyTorch 1.7.0"
+      },
+      {
+        "id": "torch180",
+        "version": "1.8",
+        "date": "2021-03-04",
+        "detail": "PyTorch 1.8.0"
+      },
+      {
+        "id": "torch190",
+        "version": "1.9",
+        "date": "2021-06-15",
+        "detail": "PyTorch 1.9.0"
+      },
+      {
+        "id": "torch1100",
+        "version": "1.10",
+        "date": "2021-10-21",
+        "detail": "PyTorch 1.10.0"
+      },
+      {
+        "id": "torch1110",
+        "version": "1.11",
+        "date": "2022-03-10",
+        "detail": "PyTorch 1.11.0"
+      },
+      {
+        "id": "torch1120",
+        "version": "1.12",
+        "date": "2022-06-28",
+        "detail": "PyTorch 1.12.0"
+      },
+      {
+        "id": "torch1130",
+        "version": "1.13",
+        "date": "2022-10-28",
+        "detail": "PyTorch 1.13.0"
+      },
+      {
+        "id": "torch200",
+        "version": "2.0",
+        "date": "2023-03-15",
+        "detail": "PyTorch 2.0.0"
+      },
+      {
+        "id": "torch210",
+        "version": "2.1",
+        "date": "2023-10-04",
+        "detail": "PyTorch 2.1.0"
+      },
+      {
+        "id": "torch220",
+        "version": "2.2",
+        "date": "2024-01-30",
+        "detail": "PyTorch 2.2.0"
+      },
+      {
+        "id": "torch230",
+        "version": "2.3",
+        "date": "2024-04-24",
+        "detail": "PyTorch 2.3.0"
+      },
+      {
+        "id": "torch240",
+        "version": "2.4",
+        "date": "2024-07-24",
+        "detail": "PyTorch 2.4.0"
+      },
+      {
+        "id": "torch250",
+        "version": "2.5",
+        "date": "2024-10-17",
+        "detail": "PyTorch 2.5.0"
+      },
+      {
+        "id": "torch260",
+        "version": "2.6",
+        "date": "2025-01-29",
+        "detail": "PyTorch 2.6.0"
+      },
+      {
+        "id": "torch270",
+        "version": "2.7",
+        "date": "2025-04-23",
+        "detail": "PyTorch 2.7.0",
+        "badge": "Blackwell support"
+      },
+      {
+        "id": "torch280",
+        "version": "2.8",
+        "date": "2025-08-06",
+        "detail": "PyTorch 2.8.0"
+      },
+      {
+        "id": "torch290",
+        "version": "2.9",
+        "date": "2025-10-15",
+        "detail": "PyTorch 2.9.0"
+      },
+      {
+        "id": "torch2100",
+        "version": "2.10",
+        "date": "2026-01-21",
+        "detail": "PyTorch 2.10.0"
+      },
+      {
+        "id": "torch2110",
+        "version": "2.11",
+        "date": "2026-03-23",
+        "detail": "PyTorch 2.11.0"
+      },
+      {
+        "id": "torch2120",
+        "version": "2.12",
+        "date": "2026-05-13",
+        "detail": "PyTorch 2.12.0"
+      },
+      {
+        "id": "torch2130",
+        "version": "2.13",
+        "date": "2026-07-08",
+        "detail": "PyTorch 2.13.0",
+        "badge": "current stable"
+      }
+    ],
+    "cuda": [
+      {
+        "id": "cu100",
+        "version": "10.0",
+        "date": "2018-09-01",
+        "detail": "CUDA 10.0",
+        "badge": "Turing native"
+      },
+      {
+        "id": "cu101",
+        "version": "10.1",
+        "date": "2019-02-01",
+        "detail": "CUDA 10.1"
+      },
+      {
+        "id": "cu102",
+        "version": "10.2",
+        "date": "2019-11-01",
+        "detail": "CUDA 10.2"
+      },
+      {
+        "id": "cu110",
+        "version": "11.0",
+        "date": "2020-05-01",
+        "detail": "CUDA 11.0",
+        "badge": "Ampere native"
+      },
+      {
+        "id": "cu111",
+        "version": "11.1",
+        "date": "2020-09-01",
+        "detail": "CUDA 11.1"
+      },
+      {
+        "id": "cu112",
+        "version": "11.2",
+        "date": "2020-12-01",
+        "detail": "CUDA 11.2"
+      },
+      {
+        "id": "cu113",
+        "version": "11.3",
+        "date": "2021-04-01",
+        "detail": "CUDA 11.3"
+      },
+      {
+        "id": "cu116",
+        "version": "11.6",
+        "date": "2022-01-01",
+        "detail": "CUDA 11.6"
+      },
+      {
+        "id": "cu117",
+        "version": "11.7",
+        "date": "2022-05-01",
+        "detail": "CUDA 11.7"
+      },
+      {
+        "id": "cu118",
+        "version": "11.8",
+        "date": "2022-10-03",
+        "detail": "CUDA 11.8",
+        "badge": "Ada native"
+      },
+      {
+        "id": "cu120",
+        "version": "12.0",
+        "date": "2023-01-27",
+        "detail": "CUDA 12.0"
+      },
+      {
+        "id": "cu121",
+        "version": "12.1",
+        "date": "2023-04-18",
+        "detail": "CUDA 12.1"
+      },
+      {
+        "id": "cu122",
+        "version": "12.2",
+        "date": "2023-07-25",
+        "detail": "CUDA 12.2"
+      },
+      {
+        "id": "cu123",
+        "version": "12.3",
+        "date": "2023-11-15",
+        "detail": "CUDA 12.3"
+      },
+      {
+        "id": "cu124",
+        "version": "12.4",
+        "date": "2024-04-03",
+        "detail": "CUDA 12.4"
+      },
+      {
+        "id": "cu125",
+        "version": "12.5",
+        "date": "2024-07-01",
+        "detail": "CUDA 12.5"
+      },
+      {
+        "id": "cu126",
+        "version": "12.6",
+        "date": "2024-09-30",
+        "detail": "CUDA 12.6"
+      },
+      {
+        "id": "cu128",
+        "version": "12.8",
+        "date": "2025-03-06",
+        "detail": "CUDA 12.8",
+        "badge": "Blackwell native"
+      },
+      {
+        "id": "cu129",
+        "version": "12.9",
+        "date": "2025-06-05",
+        "detail": "CUDA 12.9"
+      },
+      {
+        "id": "cu131",
+        "version": "13.1",
+        "date": "2026-01-12",
+        "detail": "CUDA 13.1"
+      },
+      {
+        "id": "cu132",
+        "version": "13.2",
+        "date": "2026-04-13",
+        "detail": "CUDA 13.2"
+      },
+      {
+        "id": "cu133",
+        "version": "13.3",
+        "date": "2026-05-26",
+        "detail": "CUDA 13.3"
+      },
+      {
+        "id": "cu130",
+        "version": "13.0",
+        "date": "2026-06-29",
+        "detail": "CUDA 13.0"
+      }
+    ],
+    "gpu": [
+      {
+        "id": "gpu20",
+        "version": "RTX 20",
+        "date": "2018-09-20",
+        "detail": "GeForce RTX 20 · Turing · SM 7.5",
+        "arch": "Turing",
+        "sm": "7.5",
+        "native_cuda": "10.0"
+      },
+      {
+        "id": "gpu30",
+        "version": "RTX 30",
+        "date": "2020-09-17",
+        "detail": "GeForce RTX 30 · Ampere · SM 8.x",
+        "arch": "Ampere",
+        "sm": "8.x",
+        "native_cuda": "11.0"
+      },
+      {
+        "id": "gpu40",
+        "version": "RTX 40",
+        "date": "2022-10-12",
+        "detail": "GeForce RTX 40 · Ada Lovelace · SM 8.9",
+        "arch": "Ada",
+        "sm": "8.9",
+        "native_cuda": "11.8"
+      },
+      {
+        "id": "gpu50",
+        "version": "RTX 50",
+        "date": "2025-01-30",
+        "detail": "GeForce RTX 50 · Blackwell · SM 10.x/12.x by SKU",
+        "arch": "Blackwell",
+        "sm": "10.x/12.x",
+        "native_cuda": "12.8",
+        "badge": "your RTX 5070 family"
+      }
+    ]
+  },
+  "compat": {
+    "torch_cuda": {
+      "1.0": [
+        "7.5",
+        "8.0",
+        "9.0",
+        "9.2",
+        "10.0"
+      ],
+      "1.2": [
+        "9.2",
+        "10.0"
+      ],
+      "1.4": [
+        "9.2",
+        "10.1"
+      ],
+      "1.7": [
+        "9.2",
+        "10.1",
+        "10.2",
+        "11.0"
+      ],
+      "1.8": [
+        "10.2",
+        "11.1"
+      ],
+      "1.9": [
+        "10.2",
+        "11.1",
+        "11.3"
+      ],
+      "1.10": [
+        "10.2",
+        "11.1",
+        "11.3"
+      ],
+      "1.11": [
+        "10.2",
+        "11.3"
+      ],
+      "1.12": [
+        "10.2",
+        "11.3",
+        "11.6"
+      ],
+      "1.13": [
+        "11.6",
+        "11.7"
+      ],
+      "2.0": [
+        "11.7",
+        "11.8"
+      ],
+      "2.1": [
+        "11.8",
+        "12.1"
+      ],
+      "2.2": [
+        "11.8",
+        "12.1"
+      ],
+      "2.3": [
+        "11.8",
+        "12.1"
+      ],
+      "2.4": [
+        "11.8",
+        "12.1",
+        "12.4"
+      ],
+      "2.5": [
+        "11.8",
+        "12.1",
+        "12.4"
+      ],
+      "2.6": [
+        "11.8",
+        "12.4",
+        "12.6"
+      ],
+      "2.7": [
+        "11.8",
+        "12.6",
+        "12.8"
+      ],
+      "2.8": [
+        "12.6",
+        "12.8",
+        "12.9"
+      ],
+      "2.9": [
+        "12.6",
+        "12.8",
+        "13.0"
+      ],
+      "2.10": [
+        "12.6",
+        "12.8",
+        "13.0"
+      ],
+      "2.11": [
+        "12.6",
+        "12.8",
+        "13.0"
+      ],
+      "2.12": [
+        "12.6",
+        "13.0",
+        "13.2"
+      ],
+      "2.13": [
+        "12.6",
+        "13.0",
+        "13.2"
+      ],
+      "1.6": [
+        "9.2",
+        "10.1",
+        "10.2"
+      ],
+      "1.5": [
+        "9.2",
+        "10.1",
+        "10.2"
+      ],
+      "1.1": [
+        "9.0",
+        "10.0"
+      ]
+    },
+    "torch_python": {
+      "1.0": [
+        "3.5",
+        "3.6",
+        "3.7"
+      ],
+      "1.2": [
+        "3.5",
+        "3.6",
+        "3.7"
+      ],
+      "1.4": [
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.8"
+      ],
+      "1.7": [
+        "3.6",
+        "3.7",
+        "3.8"
+      ],
+      "1.8": [
+        "3.6",
+        "3.7",
+        "3.8",
+        "3.9"
+      ],
+      "1.9": [
+        "3.6",
+        "3.7",
+        "3.8",
+        "3.9"
+      ],
+      "1.10": [
+        "3.6",
+        "3.7",
+        "3.8",
+        "3.9"
+      ],
+      "1.11": [
+        "3.7",
+        "3.8",
+        "3.9",
+        "3.10"
+      ],
+      "1.12": [
+        "3.7",
+        "3.8",
+        "3.9",
+        "3.10"
+      ],
+      "1.13": [
+        "3.7",
+        "3.8",
+        "3.9",
+        "3.10",
+        "3.11"
+      ],
+      "2.0": [
+        "3.8",
+        "3.9",
+        "3.10",
+        "3.11"
+      ],
+      "2.1": [
+        "3.8",
+        "3.9",
+        "3.10",
+        "3.11"
+      ],
+      "2.2": [
+        "3.8",
+        "3.9",
+        "3.10",
+        "3.11",
+        "3.12"
+      ],
+      "2.3": [
+        "3.8",
+        "3.9",
+        "3.10",
+        "3.11",
+        "3.12"
+      ],
+      "2.4": [
+        "3.8",
+        "3.9",
+        "3.10",
+        "3.11",
+        "3.12"
+      ],
+      "2.5": [
+        "3.9",
+        "3.10",
+        "3.11",
+        "3.12",
+        "3.13"
+      ],
+      "2.6": [
+        "3.9",
+        "3.10",
+        "3.11",
+        "3.12",
+        "3.13"
+      ],
+      "2.7": [
+        "3.9",
+        "3.10",
+        "3.11",
+        "3.12",
+        "3.13"
+      ],
+      "2.8": [
+        "3.9",
+        "3.10",
+        "3.11",
+        "3.12",
+        "3.13"
+      ],
+      "2.9": [
+        "3.10",
+        "3.11",
+        "3.12",
+        "3.13",
+        "3.14"
+      ],
+      "2.10": [
+        "3.10",
+        "3.11",
+        "3.12",
+        "3.13",
+        "3.14"
+      ],
+      "2.11": [
+        "3.10",
+        "3.11",
+        "3.12",
+        "3.13",
+        "3.14"
+      ],
+      "2.12": [
+        "3.10",
+        "3.11",
+        "3.12",
+        "3.13",
+        "3.14"
+      ],
+      "2.13": [
+        "3.10",
+        "3.11",
+        "3.12",
+        "3.13",
+        "3.14"
+      ],
+      "1.1": [
+        "3.5",
+        "3.6",
+        "3.7"
+      ],
+      "1.3": [
+        "3.5",
+        "3.6",
+        "3.7"
+      ],
+      "1.5": [
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.8"
+      ],
+      "1.6": [
+        "3.6",
+        "3.7",
+        "3.8"
+      ]
+    },
+    "gpu_cuda_native": {
+      "RTX 20": [
+        "10.0"
+      ],
+      "RTX 30": [
+        "11.0"
+      ],
+      "RTX 40": [
+        "11.8"
+      ],
+      "RTX 50": [
+        "12.8"
+      ]
+    },
+    "gpu_torch_recommended": {
+      "RTX 20": [
+        "1.0",
+        "1.2",
+        "1.4",
+        "1.7",
+        "1.8",
+        "1.9",
+        "1.10",
+        "1.11",
+        "1.12",
+        "1.13",
+        "2.0",
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "RTX 30": [
+        "1.7",
+        "1.8",
+        "1.9",
+        "1.10",
+        "1.11",
+        "1.12",
+        "1.13",
+        "2.0",
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "RTX 40": [
+        "2.0",
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "RTX 50": [
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ]
+    }
+  }
+}
