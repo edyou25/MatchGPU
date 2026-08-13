@@ -55,14 +55,12 @@ def update_torch_dates_and_python(db, report):
     for full, files in releases.items():
         if not re.fullmatch(r"\d+\.\d+\.0", full): continue
         major_minor=normalize_torch(full)
-        # first upload date
         dates=[f.get("upload_time_iso_8601","")[:10] for f in files if f.get("upload_time_iso_8601")]
         if dates and int(dates[0][:4])>=2018:
             d=min(dates)
             if major_minor in existing: existing[major_minor]["date"]=d
             else:
                 db["tracks"]["torch"].append({"id":"torch"+major_minor.replace(".","")+"0","version":major_minor,"date":d,"detail":f"PyTorch {full}"})
-        # CPython wheels actually published for that exact release
         pys=set()
         for f in files:
             fn=f.get("filename","")
@@ -78,7 +76,6 @@ def update_torch_dates_and_python(db, report):
 
 def update_torch_cuda(db, report):
     text,_=get_text("https://pytorch.org/get-started/previous-versions/")
-    # Split by explicit version headings as they appear in extracted text.
     matches=list(re.finditer(r"(?m)^v(\d+\.\d+\.\d+)\s*$", text))
     matrix={}
     for i,m in enumerate(matches):
@@ -89,14 +86,12 @@ def update_torch_cuda(db, report):
         for x in re.findall(r"CUDA\s+(\d+\.\d+)",sec): vals.add(x)
         for x in re.findall(r"/whl/cu(\d{3})",sec):
             vals.add(f"{x[:2]}.{x[2]}" if x.startswith("1") else f"{x[0]}.{x[1:]}")
-        # Prefer .0 releases, otherwise fill if not seen.
         if full.endswith(".0") or mm not in matrix:
             if vals: matrix[mm]=sorted(vals,key=lambda s:tuple(map(int,s.split("."))))
     if matrix: db["compat"]["torch_cuda"].update(matrix)
     report.append(f"PyTorch↔CUDA: {len(matrix)} official binary matrices checked")
 
 def update_cuda_versions(db, report):
-    # CUPTI release history is an official NVIDIA page and provides toolkit-linked dates.
     text,_=get_text("https://developer.nvidia.com/cupti/releases")
     found={}
     for m in re.finditer(r"(20\d{2})[/-](\d{2})[/-](\d{2}).{0,120}?\b(1[0-9]\.\d+)\b", text, re.S):
@@ -111,7 +106,6 @@ def update_cuda_versions(db, report):
                 db["tracks"]["cuda"].append({"id":"cu"+v.replace(".",""),"version":v,"date":d,"detail":f"CUDA {v}"})
         report.append(f"CUDA/CUPTI: {len(found)} dated toolkit milestones checked")
     else:
-        # Still verify archive access.
         get_text("https://developer.nvidia.com/cuda-toolkit-archive")
         report.append("CUDA archive checked; no new dated CUPTI rows parsed")
 

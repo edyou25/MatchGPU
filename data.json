@@ -7,10 +7,11 @@
     ],
     "last_updated": "2026-08-13",
     "notes": [
-      "PyTorch ↔ CUDA: official PyTorch binary build matrices.",
-      "PyTorch ↔ Python: CPython wheel availability / official supported Python range.",
-      "GPU ↔ CUDA: native architecture support milestones; PTX forward-compatibility can be broader.",
-      "GPU release nodes use first major desktop GeForce availability for each RTX generation."
+      "GPU dates are announcement or launch milestones.",
+      "PyTorch ↔ CUDA means an official PyTorch binary build was published for that CUDA version.",
+      "PyTorch ↔ Python uses official CPython wheel availability and supported Python ranges.",
+      "GPU ↔ CUDA marks the native architecture-support baseline used by this visualization.",
+      "PTX forward compatibility and driver compatibility may allow additional combinations."
     ],
     "sources": [
       {
@@ -22,15 +23,11 @@
         "url": "https://pytorch.org/get-started/previous-versions/"
       },
       {
-        "name": "PyTorch Start Locally",
-        "url": "https://pytorch.org/get-started/locally/"
-      },
-      {
         "name": "CUDA Toolkit archive",
         "url": "https://developer.nvidia.com/cuda-toolkit-archive"
       },
       {
-        "name": "NVIDIA CUDA compatibility guides",
+        "name": "NVIDIA CUDA documentation",
         "url": "https://docs.nvidia.com/cuda/"
       },
       {
@@ -98,40 +95,16 @@
         "detail": "PyTorch 1.0.0"
       },
       {
-        "id": "torch110",
-        "version": "1.1",
-        "date": "2019-04-30",
-        "detail": "PyTorch 1.1.0"
-      },
-      {
         "id": "torch120",
         "version": "1.2",
         "date": "2019-08-08",
         "detail": "PyTorch 1.2.0"
       },
       {
-        "id": "torch130",
-        "version": "1.3",
-        "date": "2019-10-10",
-        "detail": "PyTorch 1.3.0"
-      },
-      {
         "id": "torch140",
         "version": "1.4",
         "date": "2020-01-15",
         "detail": "PyTorch 1.4.0"
-      },
-      {
-        "id": "torch150",
-        "version": "1.5",
-        "date": "2020-04-21",
-        "detail": "PyTorch 1.5.0"
-      },
-      {
-        "id": "torch160",
-        "version": "1.6",
-        "date": "2020-07-28",
-        "detail": "PyTorch 1.6.0"
       },
       {
         "id": "torch170",
@@ -329,130 +302,261 @@
       {
         "id": "cu120",
         "version": "12.0",
-        "date": "2023-01-27",
+        "date": "2022-12-01",
         "detail": "CUDA 12.0"
       },
       {
         "id": "cu121",
         "version": "12.1",
-        "date": "2023-04-18",
+        "date": "2023-02-01",
         "detail": "CUDA 12.1"
-      },
-      {
-        "id": "cu122",
-        "version": "12.2",
-        "date": "2023-07-25",
-        "detail": "CUDA 12.2"
-      },
-      {
-        "id": "cu123",
-        "version": "12.3",
-        "date": "2023-11-15",
-        "detail": "CUDA 12.3"
       },
       {
         "id": "cu124",
         "version": "12.4",
-        "date": "2024-04-03",
+        "date": "2024-03-01",
         "detail": "CUDA 12.4"
-      },
-      {
-        "id": "cu125",
-        "version": "12.5",
-        "date": "2024-07-01",
-        "detail": "CUDA 12.5"
       },
       {
         "id": "cu126",
         "version": "12.6",
-        "date": "2024-09-30",
+        "date": "2024-08-01",
         "detail": "CUDA 12.6"
       },
       {
         "id": "cu128",
         "version": "12.8",
-        "date": "2025-03-06",
+        "date": "2025-01-01",
         "detail": "CUDA 12.8",
         "badge": "Blackwell native"
       },
       {
         "id": "cu129",
         "version": "12.9",
-        "date": "2025-06-05",
+        "date": "2025-05-01",
         "detail": "CUDA 12.9"
+      },
+      {
+        "id": "cu130",
+        "version": "13.0",
+        "date": "2025-08-01",
+        "detail": "CUDA 13.0"
       },
       {
         "id": "cu131",
         "version": "13.1",
-        "date": "2026-01-12",
+        "date": "2025-12-04",
         "detail": "CUDA 13.1"
       },
       {
         "id": "cu132",
         "version": "13.2",
-        "date": "2026-04-13",
+        "date": "2026-03-01",
         "detail": "CUDA 13.2"
       },
       {
         "id": "cu133",
         "version": "13.3",
-        "date": "2026-05-26",
+        "date": "2026-07-01",
         "detail": "CUDA 13.3"
-      },
-      {
-        "id": "cu130",
-        "version": "13.0",
-        "date": "2026-06-29",
-        "detail": "CUDA 13.0"
       }
     ],
     "gpu": [
       {
-        "id": "gpu20",
-        "version": "RTX 20",
-        "date": "2018-09-20",
-        "detail": "GeForce RTX 20 · Turing · SM 7.5",
+        "id": "t4",
+        "version": "T4",
+        "date": "2018-09-12",
+        "detail": "NVIDIA T4 · Turing · SM 7.5",
         "arch": "Turing",
         "sm": "7.5",
+        "product_class": "Data Center",
         "native_cuda": "10.0"
       },
       {
-        "id": "gpu30",
-        "version": "RTX 30",
-        "date": "2020-09-17",
-        "detail": "GeForce RTX 30 · Ampere · SM 8.x",
+        "id": "rtx20",
+        "version": "RTX 20",
+        "date": "2018-09-20",
+        "detail": "GeForce RTX 20 Series · Turing · SM 7.5",
+        "arch": "Turing",
+        "sm": "7.5",
+        "product_class": "GeForce",
+        "native_cuda": "10.0"
+      },
+      {
+        "id": "a100",
+        "version": "A100",
+        "date": "2020-05-14",
+        "detail": "NVIDIA A100 · Ampere · SM 8.0",
         "arch": "Ampere",
-        "sm": "8.x",
+        "sm": "8.0",
+        "product_class": "Data Center",
         "native_cuda": "11.0"
       },
       {
-        "id": "gpu40",
-        "version": "RTX 40",
-        "date": "2022-10-12",
-        "detail": "GeForce RTX 40 · Ada Lovelace · SM 8.9",
-        "arch": "Ada",
-        "sm": "8.9",
+        "id": "rtx30",
+        "version": "RTX 30",
+        "date": "2020-09-17",
+        "detail": "GeForce RTX 30 Series · Ampere · SM 8.6",
+        "arch": "Ampere",
+        "sm": "8.6",
+        "product_class": "GeForce",
+        "native_cuda": "11.1"
+      },
+      {
+        "id": "rtxa6000",
+        "version": "RTX A6000",
+        "date": "2020-10-05",
+        "detail": "NVIDIA RTX A6000 · Ampere · SM 8.6",
+        "arch": "Ampere",
+        "sm": "8.6",
+        "product_class": "Professional",
+        "native_cuda": "11.1"
+      },
+      {
+        "id": "a40",
+        "version": "A40",
+        "date": "2020-10-05",
+        "detail": "NVIDIA A40 · Ampere · SM 8.6",
+        "arch": "Ampere",
+        "sm": "8.6",
+        "product_class": "Data Center",
+        "native_cuda": "11.1"
+      },
+      {
+        "id": "h100",
+        "version": "H100",
+        "date": "2022-03-22",
+        "detail": "NVIDIA H100 · Hopper · SM 9.0",
+        "arch": "Hopper",
+        "sm": "9.0",
+        "product_class": "Data Center",
         "native_cuda": "11.8"
       },
       {
-        "id": "gpu50",
+        "id": "rtx6000ada",
+        "version": "RTX 6000 Ada",
+        "date": "2022-09-20",
+        "detail": "NVIDIA RTX 6000 Ada · Ada Lovelace · SM 8.9",
+        "arch": "Ada Lovelace",
+        "sm": "8.9",
+        "product_class": "Professional",
+        "native_cuda": "11.8"
+      },
+      {
+        "id": "rtx40",
+        "version": "RTX 40",
+        "date": "2022-10-12",
+        "detail": "GeForce RTX 40 Series · Ada Lovelace · SM 8.9",
+        "arch": "Ada Lovelace",
+        "sm": "8.9",
+        "product_class": "GeForce",
+        "native_cuda": "11.8"
+      },
+      {
+        "id": "l4",
+        "version": "L4",
+        "date": "2023-03-21",
+        "detail": "NVIDIA L4 · Ada Lovelace · SM 8.9",
+        "arch": "Ada Lovelace",
+        "sm": "8.9",
+        "product_class": "Data Center",
+        "native_cuda": "11.8"
+      },
+      {
+        "id": "l40s",
+        "version": "L40S",
+        "date": "2023-08-08",
+        "detail": "NVIDIA L40S · Ada Lovelace · SM 8.9",
+        "arch": "Ada Lovelace",
+        "sm": "8.9",
+        "product_class": "Data Center",
+        "native_cuda": "11.8"
+      },
+      {
+        "id": "h200",
+        "version": "H200",
+        "date": "2023-11-13",
+        "detail": "NVIDIA H200 · Hopper · SM 9.0",
+        "arch": "Hopper",
+        "sm": "9.0",
+        "product_class": "Data Center",
+        "native_cuda": "11.8"
+      },
+      {
+        "id": "b100",
+        "version": "B100",
+        "date": "2024-03-18",
+        "detail": "NVIDIA B100 · Blackwell · SM 10.0",
+        "arch": "Blackwell",
+        "sm": "10.0",
+        "product_class": "Data Center",
+        "native_cuda": "12.8"
+      },
+      {
+        "id": "b200",
+        "version": "B200",
+        "date": "2024-03-18",
+        "detail": "NVIDIA B200 · Blackwell · SM 10.0",
+        "arch": "Blackwell",
+        "sm": "10.0",
+        "product_class": "Data Center",
+        "native_cuda": "12.8"
+      },
+      {
+        "id": "gb200",
+        "version": "GB200",
+        "date": "2024-03-18",
+        "detail": "NVIDIA GB200 Grace Blackwell Superchip",
+        "arch": "Blackwell",
+        "sm": "10.0",
+        "product_class": "Data Center",
+        "native_cuda": "12.8"
+      },
+      {
+        "id": "rtx50",
         "version": "RTX 50",
         "date": "2025-01-30",
-        "detail": "GeForce RTX 50 · Blackwell · SM 10.x/12.x by SKU",
+        "detail": "GeForce RTX 50 Series · Blackwell",
         "arch": "Blackwell",
-        "sm": "10.x/12.x",
-        "native_cuda": "12.8",
-        "badge": "your RTX 5070 family"
+        "sm": "12.x by SKU",
+        "product_class": "GeForce",
+        "native_cuda": "12.8"
+      },
+      {
+        "id": "rtxpro6000",
+        "version": "RTX PRO 6000",
+        "date": "2025-03-18",
+        "detail": "NVIDIA RTX PRO 6000 Blackwell",
+        "arch": "Blackwell",
+        "sm": "12.x",
+        "product_class": "Professional",
+        "native_cuda": "12.8"
+      },
+      {
+        "id": "b300",
+        "version": "B300",
+        "date": "2025-03-18",
+        "detail": "NVIDIA B300 Blackwell Ultra",
+        "arch": "Blackwell Ultra",
+        "sm": "10.x",
+        "product_class": "Data Center",
+        "native_cuda": "12.8"
+      },
+      {
+        "id": "gb300",
+        "version": "GB300",
+        "date": "2025-03-18",
+        "detail": "NVIDIA GB300 Grace Blackwell Ultra",
+        "arch": "Blackwell Ultra",
+        "sm": "10.x",
+        "product_class": "Data Center",
+        "native_cuda": "12.8"
       }
     ]
   },
   "compat": {
     "torch_cuda": {
       "1.0": [
-        "7.5",
-        "8.0",
-        "9.0",
-        "9.2",
         "10.0"
       ],
       "1.2": [
@@ -470,13 +574,13 @@
         "11.0"
       ],
       "1.8": [
+        "10.1",
         "10.2",
         "11.1"
       ],
       "1.9": [
         "10.2",
-        "11.1",
-        "11.3"
+        "11.1"
       ],
       "1.10": [
         "10.2",
@@ -561,25 +665,10 @@
         "12.6",
         "13.0",
         "13.2"
-      ],
-      "1.6": [
-        "9.2",
-        "10.1",
-        "10.2"
-      ],
-      "1.5": [
-        "9.2",
-        "10.1",
-        "10.2"
-      ],
-      "1.1": [
-        "9.0",
-        "10.0"
       ]
     },
     "torch_python": {
       "1.0": [
-        "3.5",
         "3.6",
         "3.7"
       ],
@@ -633,8 +722,7 @@
         "3.7",
         "3.8",
         "3.9",
-        "3.10",
-        "3.11"
+        "3.10"
       ],
       "2.0": [
         "3.8",
@@ -673,8 +761,7 @@
         "3.9",
         "3.10",
         "3.11",
-        "3.12",
-        "3.13"
+        "3.12"
       ],
       "2.6": [
         "3.9",
@@ -731,44 +818,94 @@
         "3.12",
         "3.13",
         "3.14"
-      ],
-      "1.1": [
-        "3.5",
-        "3.6",
-        "3.7"
-      ],
-      "1.3": [
-        "3.5",
-        "3.6",
-        "3.7"
-      ],
-      "1.5": [
-        "3.5",
-        "3.6",
-        "3.7",
-        "3.8"
-      ],
-      "1.6": [
-        "3.6",
-        "3.7",
-        "3.8"
       ]
     },
     "gpu_cuda_native": {
+      "T4": [
+        "10.0"
+      ],
       "RTX 20": [
         "10.0"
       ],
-      "RTX 30": [
+      "A100": [
         "11.0"
+      ],
+      "RTX 30": [
+        "11.1"
+      ],
+      "RTX A6000": [
+        "11.1"
+      ],
+      "A40": [
+        "11.1"
+      ],
+      "H100": [
+        "11.8"
+      ],
+      "RTX 6000 Ada": [
+        "11.8"
       ],
       "RTX 40": [
         "11.8"
       ],
+      "L4": [
+        "11.8"
+      ],
+      "L40S": [
+        "11.8"
+      ],
+      "H200": [
+        "11.8"
+      ],
+      "B100": [
+        "12.8"
+      ],
+      "B200": [
+        "12.8"
+      ],
+      "GB200": [
+        "12.8"
+      ],
       "RTX 50": [
+        "12.8"
+      ],
+      "RTX PRO 6000": [
+        "12.8"
+      ],
+      "B300": [
+        "12.8"
+      ],
+      "GB300": [
         "12.8"
       ]
     },
     "gpu_torch_recommended": {
+      "T4": [
+        "1.0",
+        "1.2",
+        "1.4",
+        "1.7",
+        "1.8",
+        "1.9",
+        "1.10",
+        "1.11",
+        "1.12",
+        "1.13",
+        "2.0",
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
       "RTX 20": [
         "1.0",
         "1.2",
@@ -795,7 +932,7 @@
         "2.12",
         "2.13"
       ],
-      "RTX 30": [
+      "A100": [
         "1.7",
         "1.8",
         "1.9",
@@ -803,6 +940,104 @@
         "1.11",
         "1.12",
         "1.13",
+        "2.0",
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "RTX 30": [
+        "1.8",
+        "1.9",
+        "1.10",
+        "1.11",
+        "1.12",
+        "1.13",
+        "2.0",
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "RTX A6000": [
+        "1.8",
+        "1.9",
+        "1.10",
+        "1.11",
+        "1.12",
+        "1.13",
+        "2.0",
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "A40": [
+        "1.8",
+        "1.9",
+        "1.10",
+        "1.11",
+        "1.12",
+        "1.13",
+        "2.0",
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "H100": [
+        "2.0",
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "RTX 6000 Ada": [
         "2.0",
         "2.1",
         "2.2",
@@ -834,6 +1069,81 @@
         "2.12",
         "2.13"
       ],
+      "L4": [
+        "2.0",
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "L40S": [
+        "2.0",
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "H200": [
+        "2.0",
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "B100": [
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "B200": [
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "GB200": [
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
       "RTX 50": [
         "2.7",
         "2.8",
@@ -842,7 +1152,55 @@
         "2.11",
         "2.12",
         "2.13"
+      ],
+      "RTX PRO 6000": [
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "B300": [
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
+      ],
+      "GB300": [
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13"
       ]
+    },
+    "gpu_torch_min": {
+      "T4": "1.0",
+      "RTX 20": "1.0",
+      "A100": "1.7",
+      "RTX 30": "1.8",
+      "RTX A6000": "1.8",
+      "A40": "1.8",
+      "H100": "2.0",
+      "RTX 6000 Ada": "2.0",
+      "RTX 40": "2.0",
+      "L4": "2.0",
+      "L40S": "2.0",
+      "H200": "2.0",
+      "B100": "2.7",
+      "B200": "2.7",
+      "GB200": "2.7",
+      "RTX 50": "2.7",
+      "RTX PRO 6000": "2.7",
+      "B300": "2.7",
+      "GB300": "2.7"
     }
   }
 }
